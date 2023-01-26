@@ -40,11 +40,11 @@ int main() {
   std::vector<long double> roll4_err_vec;
   for (int rerun = 0; rerun < 10; ++rerun) {
     for (int i = 0; i < n_max; i++) {
-      a_long[i] = 1.0 * rand() / RAND_MAX;
+      a_long[i] = 10.0 * (2.0 * rand() - RAND_MAX) / RAND_MAX;
       a[i] = static_cast<double>(a_long[i]);
     }
     for (int i = 0; i < n_max; i++) {
-      b_long[i] = 1.0 * rand() / RAND_MAX;
+      b_long[i] = 1.0 * (2.0 * rand() - RAND_MAX) / RAND_MAX;
       b[i] = static_cast<double>(b_long[i]);
     }
     for (int n = 8; n < n_max; n += 8) {
