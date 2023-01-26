@@ -1,0 +1,151 @@
+## CPU INFO
+L1 Data 32 KiB (x16)
+L1 Instruction 64 KiB (x16)
+L2 Unified 512 KiB (x16)
+L3 Unified 8192 KiB (x4)
+vendor_id	: AuthenticAMD
+cpu family	: 23
+model		: 8
+model name	: AMD Ryzen Threadripper 2950X 16-Core Processor
+stepping	: 2
+microcode	: 0x800820d
+cpu MHz		: 3500.000
+cache size	: 512 KB
+physical id	: 0
+siblings	: 32
+core id		: 7
+cpu cores	: 16
+apicid		: 30
+initial apicid	: 30
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl nonstop_tsc cpuid extd_apicid amd_dcm aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw skinit wdt tce topoext perfctr_core perfctr_nb bpext perfctr_llc mwaitx cpb hw_pstate ssbd ibpb vmmcall fsgsbase bmi1 avx2 smep bmi2 rdseed adx smap clflushopt sha_ni xsaveopt xsavec xgetbv1 xsaves clzero irperf xsaveerptr arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif overflow_recov succor smca sme sev sev_es
+bugs		: sysret_ss_attrs null_seg spectre_v1 spectre_v2 spec_store_bypass retbleed
+bogomips	: 6985.78
+TLB size	: 2560 4K pages
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 43 bits physical, 48 bits virtual
+power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+
+## GCC VERSION 11.3.0
+
+--- Absolute Error Test ---
+Print out shows roll4 or roll8 absolute error is 1e-12 greater than dot_product(long double, long double)
+For roll4 vs roll8: With respect to the long double dot product, Positive values mean roll8 is less precise negative values mean roll4 is less precise.
+Tests with relative absolute error > 1e12: 30148
+roll 8 vs roll 4 err mean: -2.66381e-12 sd: 4.54447e-08
+roll 8 err mean:            1.92294e-12 sd: 3.59285e-08
+roll 4 err mean:            4.58675e-12 sd: 8.10198e-08
+roll basic err mean:        1.31743e-11 sd: 2.01876e-07
+--- Benchmarks ---
+2023-01-25T19:07:48-05:00
+Running ./dot_product/dot_product
+Run on (32 X 3946.97 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x16)
+  L1 Instruction 64 KiB (x16)
+  L2 Unified 512 KiB (x16)
+  L3 Unified 8192 KiB (x4)
+Load Average: 2.36, 0.89, 0.54
+--------------------------------------------------------------
+Benchmark                    Time             CPU   Iterations
+--------------------------------------------------------------
+BM_dot/8_mean             2.07 ns         2.07 ns            5
+BM_dot/8_median           2.07 ns         2.07 ns            5
+BM_dot/8_stddev          0.006 ns        0.006 ns            5
+BM_dot/8_cv               0.30 %          0.30 %             5
+BM_dot/64_mean            27.3 ns         27.3 ns            5
+BM_dot/64_median          27.3 ns         27.3 ns            5
+BM_dot/64_stddev         0.075 ns        0.069 ns            5
+BM_dot/64_cv              0.27 %          0.25 %             5
+BM_dot/512_mean            333 ns          333 ns            5
+BM_dot/512_median          333 ns          333 ns            5
+BM_dot/512_stddev        0.933 ns        0.988 ns            5
+BM_dot/512_cv             0.28 %          0.30 %             5
+BM_dot/4096_mean          2812 ns         2811 ns            5
+BM_dot/4096_median        2816 ns         2816 ns            5
+BM_dot/4096_stddev        11.3 ns         12.0 ns            5
+BM_dot/4096_cv            0.40 %          0.43 %             5
+BM_dot/32768_mean        22689 ns        22680 ns            5
+BM_dot/32768_median      22697 ns        22690 ns            5
+BM_dot/32768_stddev       37.0 ns         38.2 ns            5
+BM_dot/32768_cv           0.16 %          0.17 %             5
+BM_dot/65536_mean        45487 ns        45470 ns            5
+BM_dot/65536_median      45509 ns        45494 ns            5
+BM_dot/65536_stddev        105 ns          116 ns            5
+BM_dot/65536_cv           0.23 %          0.26 %             5
+2023-01-25T19:08:11-05:00
+Running ./dot_product/dot_product_4
+Run on (32 X 2880.63 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x16)
+  L1 Instruction 64 KiB (x16)
+  L2 Unified 512 KiB (x16)
+  L3 Unified 8192 KiB (x4)
+Load Average: 2.35, 1.01, 0.59
+---------------------------------------------------------------
+Benchmark                     Time             CPU   Iterations
+---------------------------------------------------------------
+BM_dot4/8_mean             1.63 ns         1.62 ns            5
+BM_dot4/8_median           1.63 ns         1.63 ns            5
+BM_dot4/8_stddev          0.011 ns        0.011 ns            5
+BM_dot4/8_cv               0.70 %          0.70 %             5
+BM_dot4/64_mean            8.81 ns         8.80 ns            5
+BM_dot4/64_median          8.84 ns         8.83 ns            5
+BM_dot4/64_stddev         0.084 ns        0.083 ns            5
+BM_dot4/64_cv              0.95 %          0.95 %             5
+BM_dot4/512_mean           86.1 ns         86.0 ns            5
+BM_dot4/512_median         86.0 ns         86.0 ns            5
+BM_dot4/512_stddev        0.336 ns        0.328 ns            5
+BM_dot4/512_cv             0.39 %          0.38 %             5
+BM_dot4/4096_mean           718 ns          718 ns            5
+BM_dot4/4096_median         720 ns          720 ns            5
+BM_dot4/4096_stddev        3.39 ns         3.40 ns            5
+BM_dot4/4096_cv            0.47 %          0.47 %             5
+BM_dot4/32768_mean         5797 ns         5793 ns            5
+BM_dot4/32768_median       5808 ns         5803 ns            5
+BM_dot4/32768_stddev       40.5 ns         40.2 ns            5
+BM_dot4/32768_cv           0.70 %          0.69 %             5
+BM_dot4/65536_mean        11753 ns        11746 ns            5
+BM_dot4/65536_median      11710 ns        11703 ns            5
+BM_dot4/65536_stddev        227 ns          227 ns            5
+BM_dot4/65536_cv           1.94 %          1.93 %             5
+2023-01-25T19:08:33-05:00
+Running ./dot_product/dot_product_8
+Run on (32 X 3382.74 MHz CPU s)
+CPU Caches:
+  L1 Data 32 KiB (x16)
+  L1 Instruction 64 KiB (x16)
+  L2 Unified 512 KiB (x16)
+  L3 Unified 8192 KiB (x4)
+Load Average: 2.11, 1.04, 0.61
+---------------------------------------------------------------
+Benchmark                     Time             CPU   Iterations
+---------------------------------------------------------------
+BM_dot8/8_mean             2.25 ns         2.24 ns            5
+BM_dot8/8_median           2.25 ns         2.25 ns            5
+BM_dot8/8_stddev          0.024 ns        0.024 ns            5
+BM_dot8/8_cv               1.09 %          1.08 %             5
+BM_dot8/64_mean            8.56 ns         8.56 ns            5
+BM_dot8/64_median          8.61 ns         8.61 ns            5
+BM_dot8/64_stddev         0.132 ns        0.132 ns            5
+BM_dot8/64_cv              1.54 %          1.54 %             5
+BM_dot8/512_mean           64.9 ns         64.9 ns            5
+BM_dot8/512_median         64.9 ns         64.8 ns            5
+BM_dot8/512_stddev        0.882 ns        0.886 ns            5
+BM_dot8/512_cv             1.36 %          1.37 %             5
+BM_dot8/4096_mean           538 ns          537 ns            5
+BM_dot8/4096_median         539 ns          539 ns            5
+BM_dot8/4096_stddev        4.19 ns         4.19 ns            5
+BM_dot8/4096_cv            0.78 %          0.78 %             5
+BM_dot8/32768_mean         4486 ns         4483 ns            5
+BM_dot8/32768_median       4491 ns         4488 ns            5
+BM_dot8/32768_stddev       11.2 ns         11.5 ns            5
+BM_dot8/32768_cv           0.25 %          0.26 %             5
+BM_dot8/65536_mean        10221 ns        10215 ns            5
+BM_dot8/65536_median      10104 ns        10098 ns            5
+BM_dot8/65536_stddev        288 ns          287 ns            5
+BM_dot8/65536_cv           2.82 %          2.81 %             5
