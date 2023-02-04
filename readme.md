@@ -22,38 +22,39 @@ https://godbolt.org/z/K5EPfe9K1
 
 See the asm comment "it begins here!" for the main code.
 
-After setting the CPU frequency manually the only time that is better for the 4 loop unroll is when we have 8 doubles. 
+
+From speaking with Justin we can unravel a bit more about the ops here. [Wikichip](https://en.wikichip.org/wiki/amd/microarchitectures/zen%2B#Memory_Hierarchy) we can see the cache hierarchy's cycle latency for each layer of memory. (pasted below for easier reading)
 
 ```
-BM_dot4/8_mean             1.43 ns         1.43 ns           10
-BM_dot8/8_mean             2.13 ns         2.13 ns           10
---
-BM_dot4/8_median           1.43 ns         1.43 ns           10
-BM_dot8/8_median           2.13 ns         2.13 ns           10
---
-BM_dot4/8_stddev          0.001 ns        0.001 ns           10
-BM_dot8/8_stddev          0.002 ns        0.002 ns           10
---
-BM_dot4/8_cv               0.06 %          0.06 %            10
-BM_dot8/8_cv               0.10 %          0.10 %            10
---------------------------------
-BM_dot4/64_mean            8.49 ns         8.49 ns           10
-BM_dot8/64_mean            8.23 ns         8.22 ns           10
---
-BM_dot4/64_median          8.48 ns         8.48 ns           10
-BM_dot8/64_median          8.24 ns         8.24 ns           10
---
-BM_dot4/64_stddev         0.062 ns        0.062 ns           10
-BM_dot8/64_stddev         0.070 ns        0.070 ns           10
---
-BM_dot4/64_cv              0.73 %          0.73 %            10
-BM_dot8/64_cv              0.85 %          0.85 %            10
+L1D Cache:
+    32 KiB 8-way set associative
+        64-sets, 64 B line size
+        Write-back policy
+    4-5 cycles latency for Int
+    7-8 cycles latency for FP
+    SEC-DED ECC
+
+L2 Cache:
+    512 KiB 8-way set associative
+    1,024-sets, 64 B line size
+    Write-back policy
+    Inclusive of L1
+    12 cycles latency
+    DEC-TED ECC
+
+L3 Cache:
+    Victim cache
+    Summit Ridge, Naples: 8 MiB/CCX, shared across all cores.
+    Raven Ridge: 4 MiB/CCX, shared across all cores.
+    16-way set associative
+        8,192-sets, 64 B line size
+    40 cycles latency
+    DEC-TED ECC
 ```
 
-So `n=8` is the only one which is faster, even accounting for the standard deviations. What makes a difference of 0.7ns?
+So for tests where the `a` and `b` are less than 2048 doubles everything stays in L1 cache. Then the program spills over into L2 until vector sizes of 32768, and after that our tests do not exceed the 4Mib of L3.
 
-
-In godbolt we can see some small differences in the asm. Besides the unrolling, roll8 does an extra `vmovapd` at the begining `vhaddpd` at the end. 
+We can see the cache size effect when looking at unroll8's results for two vectors of size 32,768 vs. 65,536. Where `32768 / 4406ns = 7.43` scalars per nanosecond and `65536 / 9857ns = 6.64` scalers per nanosecond. After 32,768 we hit the L2 cache max and have to start reading from L3.  We can also see that roll4 is not hitting peak throughput where the two largest tests take `32768 / 5790ns = 5.65` scalars per nanosecond and `65536 / 11564ns = 5.66` scalars per nanosecond.
 
 ### Roll4 Main Loop
 
@@ -124,11 +125,49 @@ In godbolt we can see some small differences in the asm. Besides the unrolling, 
 ```
 
 
+### 8 is still faster with one loop?
+
+After setting the CPU frequency manually the only time that is better for the 4 loop unroll is when we have 8 doubles. 
+
+```
+BM_dot4/8_mean             1.43 ns         1.43 ns           10
+BM_dot8/8_mean             2.13 ns         2.13 ns           10
+--
+BM_dot4/8_median           1.43 ns         1.43 ns           10
+BM_dot8/8_median           2.13 ns         2.13 ns           10
+--
+BM_dot4/8_stddev          0.001 ns        0.001 ns           10
+BM_dot8/8_stddev          0.002 ns        0.002 ns           10
+--
+BM_dot4/8_cv               0.06 %          0.06 %            10
+BM_dot8/8_cv               0.10 %          0.10 %            10
+--------------------------------
+BM_dot4/64_mean            8.49 ns         8.49 ns           10
+BM_dot8/64_mean            8.23 ns         8.22 ns           10
+--
+BM_dot4/64_median          8.48 ns         8.48 ns           10
+BM_dot8/64_median          8.24 ns         8.24 ns           10
+--
+BM_dot4/64_stddev         0.062 ns        0.062 ns           10
+BM_dot8/64_stddev         0.070 ns        0.070 ns           10
+--
+BM_dot4/64_cv              0.73 %          0.73 %            10
+BM_dot8/64_cv              0.85 %          0.85 %            10
+```
+
+
+So `n=8` is the only one which is faster, even accounting for the standard deviations. What makes a difference of 0.7ns?
+
+In godbolt we can see some small differences in the asm. Besides the unrolling, roll8 does an extra `vmovapd` at the begining `vhaddpd` at the end. 
 
 I'm not really sure what here would take 0.7ns? There's a few reasons off the top of my head I can think of.
 
 1. At this point it does feel like my testing environment may not be suitable for low nanoseconds benchmarks. I'm setting the CPU freq via the userspace, but I should probably be doing it in the BIOS
 2. It's possible just using a few more registers and the extra ops could do it, but that seems odd? 
-3. It could be something where the compiler can re-use ops that are in the instruction queue in some nice way, but that's just a hand-wavey guess.
+3. It could be something where the CPU can re-use ops quicker for the roll4 loop, it does feel like since we know roll4 is more memory bound than roll8 the instructions would be the cause of the time difference.
 
-For a better benchmark analysis I'd want to set the cpu freq via BIOS instead of from userspace and instead of google bench just use rdtsc calls. I'd also need to start reading my CPU's design spec to see if it has optimizations for tight loops.
+For a better benchmark analysis I'd want to do a few things
+
+1. Set the cpu freq via BIOS instead of from userspace and instead of google bench just use rdtsc calls. 
+2. Reading my CPU's design spec to see if it has optimizations for tight loops.
+3. Run the test code from [Agner](https://www.agner.org/optimize/instruction_tables.pdf) to figure out the instruction latency for my specific CPU.
