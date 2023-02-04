@@ -4,8 +4,8 @@
 #include <dot_product/attributes.hpp>
 #include <immintrin.h>
 
-PURE_ ALWAYS_INLINE_ double dot_product_avx2_8roll(double *__restrict a, 
- double *__restrict b, int n) noexcept {
+PURE_ ALWAYS_INLINE_ inline double dot_product_avx2_8roll(double *__restrict a, 
+ double *__restrict b, const int n) noexcept {
   a = (double *)__builtin_assume_aligned(a, 64);
   b = (double *)__builtin_assume_aligned(b, 64);
   __m256d sum1 = _mm256_setzero_pd();

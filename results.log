@@ -41,111 +41,118 @@ roll 8 err mean:            9.12446e-13 sd: 8.11806e-09
 roll 4 err mean:            1.80417e-12 sd: 1.53399e-08
 roll basic err mean:        2.62574e-12 sd: 2.16471e-08
 --- Benchmarks ---
-2023-01-25T19:07:48-05:00
+2023-02-03T16:35:21-05:00
 Running ./dot_product/dot_product
-Run on (32 X 3946.97 MHz CPU s)
+Run on (32 X 3500 MHz CPU s)
 CPU Caches:
   L1 Data 32 KiB (x16)
   L1 Instruction 64 KiB (x16)
   L2 Unified 512 KiB (x16)
   L3 Unified 8192 KiB (x4)
-Load Average: 2.36, 0.89, 0.54
+Load Average: 1.33, 0.95, 0.72
+## NOTE: We manually set the CPU freq so I think this is fine to ignore
+***WARNING*** CPU scaling is enabled, the benchmark real time measurements may be noisy and will incur extra overhead.
 --------------------------------------------------------------
 Benchmark                    Time             CPU   Iterations
 --------------------------------------------------------------
-BM_dot/8_mean             2.07 ns         2.07 ns            5
-BM_dot/8_median           2.07 ns         2.07 ns            5
-BM_dot/8_stddev          0.006 ns        0.006 ns            5
-BM_dot/8_cv               0.30 %          0.30 %             5
-BM_dot/64_mean            27.3 ns         27.3 ns            5
-BM_dot/64_median          27.3 ns         27.3 ns            5
-BM_dot/64_stddev         0.075 ns        0.069 ns            5
-BM_dot/64_cv              0.27 %          0.25 %             5
-BM_dot/512_mean            333 ns          333 ns            5
-BM_dot/512_median          333 ns          333 ns            5
-BM_dot/512_stddev        0.933 ns        0.988 ns            5
-BM_dot/512_cv             0.28 %          0.30 %             5
-BM_dot/4096_mean          2812 ns         2811 ns            5
-BM_dot/4096_median        2816 ns         2816 ns            5
-BM_dot/4096_stddev        11.3 ns         12.0 ns            5
-BM_dot/4096_cv            0.40 %          0.43 %             5
-BM_dot/32768_mean        22689 ns        22680 ns            5
-BM_dot/32768_median      22697 ns        22690 ns            5
-BM_dot/32768_stddev       37.0 ns         38.2 ns            5
-BM_dot/32768_cv           0.16 %          0.17 %             5
-BM_dot/65536_mean        45487 ns        45470 ns            5
-BM_dot/65536_median      45509 ns        45494 ns            5
-BM_dot/65536_stddev        105 ns          116 ns            5
-BM_dot/65536_cv           0.23 %          0.26 %             5
-2023-01-25T19:08:11-05:00
+BM_dot/8_mean             2.03 ns         2.03 ns           10
+BM_dot/8_median           2.02 ns         2.02 ns           10
+BM_dot/8_stddev          0.046 ns        0.046 ns           10
+BM_dot/8_cv               2.27 %          2.27 %            10
+BM_dot/64_mean            26.8 ns         26.8 ns           10
+BM_dot/64_median          26.8 ns         26.8 ns           10
+BM_dot/64_stddev         0.083 ns        0.083 ns           10
+BM_dot/64_cv              0.31 %          0.31 %            10
+BM_dot/512_mean            328 ns          328 ns           10
+BM_dot/512_median          328 ns          328 ns           10
+BM_dot/512_stddev        0.101 ns        0.117 ns           10
+BM_dot/512_cv             0.03 %          0.04 %            10
+BM_dot/4096_mean          2780 ns         2779 ns           10
+BM_dot/4096_median        2779 ns         2779 ns           10
+BM_dot/4096_stddev       0.696 ns        0.620 ns           10
+BM_dot/4096_cv            0.03 %          0.02 %            10
+BM_dot/32768_mean        22411 ns        22406 ns           10
+BM_dot/32768_median      22417 ns        22411 ns           10
+BM_dot/32768_stddev       14.6 ns         13.9 ns           10
+BM_dot/32768_cv           0.07 %          0.06 %            10
+BM_dot/65536_mean        44896 ns        44884 ns           10
+BM_dot/65536_median      44899 ns        44890 ns           10
+BM_dot/65536_stddev       27.7 ns         27.7 ns           10
+BM_dot/65536_cv           0.06 %          0.06 %            10
+2023-02-03T16:36:05-05:00
 Running ./dot_product/dot_product_4
-Run on (32 X 2880.63 MHz CPU s)
+Run on (32 X 3500 MHz CPU s)
 CPU Caches:
   L1 Data 32 KiB (x16)
   L1 Instruction 64 KiB (x16)
   L2 Unified 512 KiB (x16)
   L3 Unified 8192 KiB (x4)
-Load Average: 2.35, 1.01, 0.59
+Load Average: 1.17, 0.96, 0.73
+## NOTE: We manually set the CPU freq so I think this is fine to ignore
+***WARNING*** CPU scaling is enabled, the benchmark real time measurements may be noisy and will incur extra overhead.
 ---------------------------------------------------------------
 Benchmark                     Time             CPU   Iterations
 ---------------------------------------------------------------
-BM_dot4/8_mean             1.63 ns         1.62 ns            5
-BM_dot4/8_median           1.63 ns         1.63 ns            5
-BM_dot4/8_stddev          0.011 ns        0.011 ns            5
-BM_dot4/8_cv               0.70 %          0.70 %             5
-BM_dot4/64_mean            8.81 ns         8.80 ns            5
-BM_dot4/64_median          8.84 ns         8.83 ns            5
-BM_dot4/64_stddev         0.084 ns        0.083 ns            5
-BM_dot4/64_cv              0.95 %          0.95 %             5
-BM_dot4/512_mean           86.1 ns         86.0 ns            5
-BM_dot4/512_median         86.0 ns         86.0 ns            5
-BM_dot4/512_stddev        0.336 ns        0.328 ns            5
-BM_dot4/512_cv             0.39 %          0.38 %             5
-BM_dot4/4096_mean           718 ns          718 ns            5
-BM_dot4/4096_median         720 ns          720 ns            5
-BM_dot4/4096_stddev        3.39 ns         3.40 ns            5
-BM_dot4/4096_cv            0.47 %          0.47 %             5
-BM_dot4/32768_mean         5797 ns         5793 ns            5
-BM_dot4/32768_median       5808 ns         5803 ns            5
-BM_dot4/32768_stddev       40.5 ns         40.2 ns            5
-BM_dot4/32768_cv           0.70 %          0.69 %             5
-BM_dot4/65536_mean        11753 ns        11746 ns            5
-BM_dot4/65536_median      11710 ns        11703 ns            5
-BM_dot4/65536_stddev        227 ns          227 ns            5
-BM_dot4/65536_cv           1.94 %          1.93 %             5
-2023-01-25T19:08:33-05:00
+BM_dot4/8_mean             1.43 ns         1.43 ns           10
+BM_dot4/8_median           1.43 ns         1.43 ns           10
+BM_dot4/8_stddev          0.001 ns        0.001 ns           10
+BM_dot4/8_cv               0.06 %          0.06 %            10
+BM_dot4/64_mean            8.49 ns         8.49 ns           10
+BM_dot4/64_median          8.48 ns         8.48 ns           10
+BM_dot4/64_stddev         0.062 ns        0.062 ns           10
+BM_dot4/64_cv              0.73 %          0.73 %            10
+BM_dot4/512_mean           84.8 ns         84.8 ns           10
+BM_dot4/512_median         84.8 ns         84.7 ns           10
+BM_dot4/512_stddev        0.224 ns        0.219 ns           10
+BM_dot4/512_cv             0.26 %          0.26 %            10
+BM_dot4/4096_mean           714 ns          714 ns           10
+BM_dot4/4096_median         714 ns          714 ns           10
+BM_dot4/4096_stddev       0.215 ns        0.217 ns           10
+BM_dot4/4096_cv            0.03 %          0.03 %            10
+BM_dot4/32768_mean         5790 ns         5788 ns           10
+BM_dot4/32768_median       5785 ns         5783 ns           10
+BM_dot4/32768_stddev       12.9 ns         13.2 ns           10
+BM_dot4/32768_cv           0.22 %          0.23 %            10
+BM_dot4/65536_mean        11564 ns        11561 ns           10
+BM_dot4/65536_median      11558 ns        11557 ns           10
+BM_dot4/65536_stddev       13.0 ns         12.8 ns           10
+BM_dot4/65536_cv           0.11 %          0.11 %            10
+2023-02-03T16:36:48-05:00
 Running ./dot_product/dot_product_8
-Run on (32 X 3382.74 MHz CPU s)
+Run on (32 X 3500 MHz CPU s)
 CPU Caches:
   L1 Data 32 KiB (x16)
   L1 Instruction 64 KiB (x16)
   L2 Unified 512 KiB (x16)
   L3 Unified 8192 KiB (x4)
-Load Average: 2.11, 1.04, 0.61
+Load Average: 1.08, 0.97, 0.75
+## NOTE: We manually set the CPU freq so I think this is fine to ignore
+***WARNING*** CPU scaling is enabled, the benchmark real time measurements may be noisy and will incur extra overhead.
 ---------------------------------------------------------------
 Benchmark                     Time             CPU   Iterations
 ---------------------------------------------------------------
-BM_dot8/8_mean             2.25 ns         2.24 ns            5
-BM_dot8/8_median           2.25 ns         2.25 ns            5
-BM_dot8/8_stddev          0.024 ns        0.024 ns            5
-BM_dot8/8_cv               1.09 %          1.08 %             5
-BM_dot8/64_mean            8.56 ns         8.56 ns            5
-BM_dot8/64_median          8.61 ns         8.61 ns            5
-BM_dot8/64_stddev         0.132 ns        0.132 ns            5
-BM_dot8/64_cv              1.54 %          1.54 %             5
-BM_dot8/512_mean           64.9 ns         64.9 ns            5
-BM_dot8/512_median         64.9 ns         64.8 ns            5
-BM_dot8/512_stddev        0.882 ns        0.886 ns            5
-BM_dot8/512_cv             1.36 %          1.37 %             5
-BM_dot8/4096_mean           538 ns          537 ns            5
-BM_dot8/4096_median         539 ns          539 ns            5
-BM_dot8/4096_stddev        4.19 ns         4.19 ns            5
-BM_dot8/4096_cv            0.78 %          0.78 %             5
-BM_dot8/32768_mean         4486 ns         4483 ns            5
-BM_dot8/32768_median       4491 ns         4488 ns            5
-BM_dot8/32768_stddev       11.2 ns         11.5 ns            5
-BM_dot8/32768_cv           0.25 %          0.26 %             5
-BM_dot8/65536_mean        10221 ns        10215 ns            5
-BM_dot8/65536_median      10104 ns        10098 ns            5
-BM_dot8/65536_stddev        288 ns          287 ns            5
-BM_dot8/65536_cv           2.82 %          2.81 %             5
+BM_dot8/8_mean             2.13 ns         2.13 ns           10
+BM_dot8/8_median           2.13 ns         2.13 ns           10
+BM_dot8/8_stddev          0.002 ns        0.002 ns           10
+BM_dot8/8_cv               0.10 %          0.10 %            10
+BM_dot8/64_mean            8.23 ns         8.22 ns           10
+BM_dot8/64_median          8.24 ns         8.24 ns           10
+BM_dot8/64_stddev         0.070 ns        0.070 ns           10
+BM_dot8/64_cv              0.85 %          0.85 %            10
+BM_dot8/512_mean           64.7 ns         64.7 ns           10
+BM_dot8/512_median         64.5 ns         64.5 ns           10
+BM_dot8/512_stddev        0.583 ns        0.583 ns           10
+BM_dot8/512_cv             0.90 %          0.90 %            10
+BM_dot8/4096_mean           527 ns          527 ns           10
+BM_dot8/4096_median         527 ns          527 ns           10
+BM_dot8/4096_stddev        1.93 ns         1.95 ns           10
+BM_dot8/4096_cv            0.37 %          0.37 %            10
+BM_dot8/32768_mean         4406 ns         4405 ns           10
+BM_dot8/32768_median       4389 ns         4387 ns           10
+BM_dot8/32768_stddev       69.0 ns         68.8 ns           10
+BM_dot8/32768_cv           1.57 %          1.56 %            10
+BM_dot8/65536_mean         9857 ns         9855 ns           10
+BM_dot8/65536_median       9858 ns         9856 ns           10
+BM_dot8/65536_stddev       94.9 ns         94.5 ns           10
+BM_dot8/65536_cv           0.96 %          0.96 %            10
+
