@@ -160,8 +160,9 @@ So `n=8` is the only one which is faster, even accounting for the standard devia
 
 In godbolt we can see some small differences in the asm. Besides the unrolling, roll8 does an extra `vmovapd` at the begining `vhaddpd` at the end. 
 
-I'm not really sure what here would take 0.7ns? There's a few reasons off the top of my head I can think of.
+There's a few reasons off the top of my head I can think of.
 
+1. Licensing for the CPU frequency for jumping from avx2 to non avx2 code could cause this. Running the tests with integers should confirm this.
 1. At this point it does feel like my testing environment may not be suitable for low nanoseconds benchmarks. I'm setting the CPU freq via the userspace, but I should probably be doing it in the BIOS
 2. It's possible just using a few more registers and the extra ops could do it, but that seems odd? 
 3. It could be something where the CPU can re-use ops quicker for the roll4 loop, it does feel like since we know roll4 is more memory bound than roll8 the instructions would be the cause of the time difference.
